@@ -1,6 +1,6 @@
 
 # Created by https://www.gitignore.io/api/web,node,reactnative
-
+src/keys.js
 ### Node ###
 # Logs
 logs
@@ -259,7 +259,8 @@ fastlane/readme.md
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
