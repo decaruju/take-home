@@ -24,7 +24,7 @@ class GridList extends Component {
     }
 
     more_heroes() {
-        let params = this.state.searchValue == '' ? {} : {nameStartsWith: this.state.searchValue}
+        let params = this.state.searchValue === '' ? {} : {nameStartsWith: this.state.searchValue}
         get_characters(this.state.superheros.length, params).then(superheros =>
             this.setState({superheros: this.state.superheros.concat(superheros)})
         )
@@ -47,12 +47,12 @@ class GridList extends Component {
                     onSearch={this.handleSearch.bind(this)}
                     dynamicSearchStartsFrom={1}
                 ></SearchBar>
-                <Row>
+                <Row noGutter>
                     {this.state.superheros.map((hero) => {
                         return <Col sm="4">
                             <Link to={`/superhero/${hero.id}`}>
-                                <Card>
-                                    <CardImg top width="100px" src={hero.thumbnail.path + '/standard_medium.' + hero.thumbnail.extension} alt={hero.name}/>
+                                <Card style={{margin: "32px"}}>
+                                    <CardImg top width="100px" src={hero.thumbnail.path + '/standard_xlarge.' + hero.thumbnail.extension} alt={hero.name}/>
                                     <CardBody>
                                         <CardTitle>
                                             {hero.name}

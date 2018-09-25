@@ -18,3 +18,7 @@ Comme on te l'a déjà mentionné, met l'accent sur ce qui t'importe le plus.
 
 Si tu as du Picasso en toi, tu peux absolument faire des mocks de données et mettre l'accent sur le rendu artistique.
 Si au contraire, t'es plus proche des algorithmes que des couleurs et du CSS, focus sur l'optimisation et l'acquisition de données.
+
+# Fonctionnalités intéressantes implémentées
+- Chargement automatique de personnages supplémentaires lorsque l'on arrive au bas de la page
+- Choix dynamique des couleurs sur les pages de personnages
