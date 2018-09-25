@@ -1,58 +1,48 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardImg, CardBody, CardTitle, Row, Col , Container} from 'reactstrap';
-import { get_characters } from './api.js'
+import { api_get} from './api.js'
 import './App.css'
 import BottomScrollListener from 'react-bottom-scroll-listener'
-import SearchBar from '@opuscapita/react-searchbar'
 
 class GridList extends Component {
     constructor() {
         super();
         this.state = {
-            superheros: [],
-            searchValue: '',
+            superheros: []
         }
     }
 
     componentDidMount() {
-        this.more_heroes()
-    }
-
-    clearHeroes() {
-        this.setState({...this.state, superheros: []})
+        api_get('https://gateway.marvel.com/v1/public/characters').then(data => {
+            console.log(data)
+            let superheros = data.data.results
+            this.setState({superheros: superheros})
+        })
     }
 
     more_heroes() {
-        let params = this.state.searchValue == '' ? {} : {nameStartsWith: this.state.searchValue}
-        get_characters(this.state.superheros.length, params).then(superheros =>
+        api_get(
+            'https://gateway.marvel.com/v1/public/characters', 
+            {offset: this.state.superheros.length}
+        ).then(data => {
+            console.log(data)
+            let superheros = data.data.results
             this.setState({superheros: this.state.superheros.concat(superheros)})
-        )
-    }
-
-    handleSearch(name) {
-        console.log(name)
-        this.setState({superheros: [], searchValue: name}, () =>
-            this.more_heroes()
-        )
+        })
     }
 
     render() {
-
         return (
             <div className="GridList">
                 <Container>
-                <SearchBar 
-                    value={this.state.searchValue}
-                    onSearch={this.handleSearch.bind(this)}
-                    dynamicSearchStartsFrom={1}
-                ></SearchBar>
+
                 <Row>
                     {this.state.superheros.map((hero) => {
                         return <Col sm="4">
                             <Link to={`/superhero/${hero.id}`}>
                                 <Card>
-                                    <CardImg top width="100px" src={hero.thumbnail.path + '/standard_medium.' + hero.thumbnail.extension} alt={hero.name}/>
+                                    <CardImg top width="100px" src={hero.thumbnail.path + '.' + hero.thumbnail.extension} alt={hero.name}/>
                                     <CardBody>
                                         <CardTitle>
                                             {hero.name}

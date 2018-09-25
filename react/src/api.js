@@ -7,7 +7,7 @@ var obj_to_querystring = (obj) => Object.keys(obj).reduce(
     )
  
 
-function api_get(url, params={}) {
+export function api_get(url, params={}) {
     var timestamp = Math.floor(new Date() / 1000)
     let query = {
         'ts': timestamp,
@@ -15,9 +15,15 @@ function api_get(url, params={}) {
         'hash': md5(timestamp + keys.private_key + keys.public_key),
         ...params
     }
-    return fetch( url + obj_to_querystring(query)).then(
-        results => {console.log(results); return results.json()}
-    )
+    return fetch( url + obj_to_querystring(query)).then( results => results.json())
 }
 
-export default api_get
+export function get_characters(offset=0, params={}) {
+    var url = 'https://gateway.marvel.com/v1/public/characters'
+    return api_get(url, {...params, offset: offset}).then(data => data.data.results)
+}
+
+export function get_character(id, params={}) {
+    var url = 'https://gateway.marvel.com/v1/public/characters/'
+    return api_get(url + id, {...params}).then(data => data.data.results[0])
+}

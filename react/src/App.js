@@ -8,6 +8,7 @@ import './App.css';
 import Navbar from './Navbar.js'
 import GridList from './GridList.js'
 import Heropage from './Heropage.js'
+import Avengers from './Avengers.js'
 
 
 const Superhero = ({ match }) => (
@@ -25,6 +26,7 @@ const App = () => (
       <Navbar> </Navbar>
       <Route exact path="/" component={GridList}/>
       <Route path="/superhero" component={Superhero}/>
+      <Route path="/avengers" component={Avengers}/>
       <footer>
         Data provided by Marvel. © 2014 Marvel
       </footer>
