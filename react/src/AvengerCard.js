@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardBody, CardTitle } from 'reactstrap';
-import { Link } from 'react-router-dom'
   
 class AvengerCard extends Component {
     render() {
         return (
-            <Link to={this.props.url}>
-                <Card style={{margin: "5%"}}>
+                <Card style={{margin: "5%"}} onClick={() => this.props.openModal(this.props.id)}>
                     <CardImg top 
                     src={this.props.img_src} 
                     alt={this.props.name}/>
@@ -16,7 +14,6 @@ class AvengerCard extends Component {
                         </CardTitle>
                     </CardBody>
                 </Card>
-            </Link>
         )
     }
 }

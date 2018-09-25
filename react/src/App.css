@@ -1,7 +1,12 @@
-.App {
+.GridList {
   text-align: center;
   background-color: #f11e22;
+  padding: 1%;
 }
 a {
   color: hsl(0, 0%, 100%);
+}
+
+.Avengers {
+  padding: 2%;
 }

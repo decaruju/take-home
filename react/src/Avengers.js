@@ -1,37 +1,18 @@
 import React, { Component } from 'react';
 import { Container} from 'reactstrap';
 import { get_character } from './api.js'
-import HeroList from './HeroList.js'
 import './App.css'
 
 class GridList extends Component {
-    constructor() {
-        super();
-        this.state = {
-            superheros: [],
-        }
-    }
-
-    componentDidMount() {
-        this.getAvengers()
-    }
-
-    getAvengers() {
-        var myAvengers = JSON.parse(localStorage.getItem('avengers')).mesAvengers
-        myAvengers.map(id => 
-            get_character(id).then(avenger => {
-                var currentAvengers = this.state.superheros
-                currentAvengers.push(avenger)
-                this.setState({superheros: currentAvengers})
-            })
-        )
-    }
-
     render() {
         return (
-            <div className="GridList">
+            <div className="Avengers">
+                <h1>Mes&nbsp;Avengers</h1>
                 <Container>
-                    <HeroList heros={this.state.superheros}/>
+                    {this.props.superheros.map((hero) => 
+                        <div key={hero.id}>
+                            {hero.name}
+                        </div>)}
                 </Container>
             </div>
         );
