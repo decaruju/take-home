@@ -21,4 +21,13 @@ Si au contraire, t'es plus proche des algorithmes que des couleurs et du CSS, fo
 
 # Fonctionnalités intéressantes implémentées
 - Chargement automatique de personnages supplémentaires lorsque l'on arrive au bas de la page
-- Choix dynamique des couleurs sur les pages de personnages
+- Choix dynamique des couleurs sur les pages de personnages à partir de l'image des personnages
+- Menu "Mes Avengers" que l'on peut remplir avec les personnages de son choix
+
+# Déploiement
+1. `yarn build`
+2. `cp package*.json build/`
+3. `cd build/`
+4. `docker build take-home-marvel .`
+5. `docker run -d -p 80:5000 take-home-marvel`
+6. `http://ec2-18-224-109-31.us-east-2.compute.amazonaws.com/`
