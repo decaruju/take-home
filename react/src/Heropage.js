@@ -23,6 +23,10 @@ class Heropage extends Component {
                             <hr></hr>
                             <div>
                                 {hero.description || "Aucune description n'est disponible"}
+                                <br/>
+                                <b>Nom :</b> {hero.name}
+                                <br/>
+                                <b>Âge :</b> {Int(Math.random()*20+20)}
                             </div>
                             <div>
                                 <div style={{
