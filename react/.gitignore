@@ -99,7 +99,6 @@ xcuserdata/
 *.xccheckout
 
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-build/
 DerivedData/
 *.moved-aside
 *.pbxuser
@@ -173,7 +172,6 @@ DerivedData/
 
 ### ReactNative.Gradle Stack ###
 .gradle
-/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
