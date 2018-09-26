@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container} from 'reactstrap';
+import AvengerListItem from './AvengerListItem.js'
 import './App.css'
 
 class GridList extends Component {
@@ -14,36 +15,13 @@ class GridList extends Component {
                 </div>
                 <Container>
                     {this.props.superheros.map((hero) => 
-                        <div key={hero.id} 
-                        style={{
-                            backgroundColor:hero.colors[1],
-                            color: hero.colors[0],
-                            margin:"10px",
-                            cursor: "pointer",
-                        }}
-                        >
-                        <div
-                        onClick={() => this.props.showModal(hero.id)}
-                        >
-
-                            <img src={hero.thumbnail.path + "/standard_small." + hero.thumbnail.extension} alt={hero.name}></img>
-                            <div style={{
-                            display:"inline-block",
-                            marginLeft: "10px",
-                            marginRight: "10px",
-                            fontSize: "24px"
-                            }}>
-                                {hero.name}
-                            </div>
-                        </div>
-                            <button
-                                onClick={() => this.props.handleRemove(hero.id)}
-                                height="32px"
-                                style={{
-                                float: "right",
-                            }}
-                            > Retirer</button>
-                        </div>)}
+                        <AvengerListItem 
+                            key={hero.id}
+                            showModal={this.props.showModal}
+                            handleRemove={this.props.handleRemove}
+                            hero={hero}
+                        />
+                    )}
                 </Container>
             </div>
         );

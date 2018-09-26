@@ -24,6 +24,9 @@ Si au contraire, t'es plus proche des algorithmes que des couleurs et du CSS, fo
 - Choix dynamique des couleurs sur les pages de personnages à partir de l'image des personnages
 - Menu "Mes Avengers" que l'on peut remplir avec les personnages de son choix
 
+# TODO
+- Ajouter information sur la page "Heropage"
+
 # Déploiement
 1. `yarn build`
 2. `cp package*.json build/`
