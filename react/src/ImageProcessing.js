@@ -1,8 +1,10 @@
 import Jimp from 'jimp'
 import skmeans from 'skmeans'
 import rgbHex from 'rgb-hex'
+import rgbToHsl from 'rgb-to-hsl'
 
 export function get_colors(img_path) {
+    console.log(img_path)
     return Jimp.read(img_path).then(image => {
         var pixels = []
         image.resize(100, 100)
@@ -15,8 +17,13 @@ export function get_colors(img_path) {
                     ]
                 )
             })
-        return skmeans(pixels, 5).centroids.map(
-            (color) => rgbHex(color[0], color[1], color[2])
+        
+        var colors = skmeans(pixels, 3).centroids.map(color => rgbToHsl(color[0], color[1], color[2]))
+        colors.sort((color1, color2) => color1[2].substring(0, color1.length-2) - color2[2].substring(0, color2.length-2))
+        console.log(colors)
+        colors = [colors[0], colors[2]]
+        return colors.map(
+            (color) => `hsl(${color[0]}, ${color[1]}, ${color[2]})`
         )
     })
 }

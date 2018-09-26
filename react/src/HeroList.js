@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col} from 'reactstrap';
 import AvengerCard from './AvengerCard.js'
-import Modal from 'react-modal'
-import HeroPage from './Heropage.js'
 
 
 class HeroList extends Component {
@@ -17,18 +15,6 @@ class HeroList extends Component {
                             id={hero.id}
                             openModal={this.props.openModal}
                         />
-                        <Modal 
-                            isOpen={this.props.isModalOpen(hero.id)}
-                            onRequestClose={this.props.onRequestClose}
-                        >
-                            <HeroPage
-                                heroId={hero.id}
-                                handleAdd={this.props.handleAdd}
-                                isMyAvenger={this.props.isMyAvenger}
-                                modalHero={this.props.modalHero}
-                            >
-                            </HeroPage>
-                        </Modal>
                     </Col>
                 })}
             </Row>

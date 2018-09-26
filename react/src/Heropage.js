@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {get_character} from './api.js'
 import { Row, Col , Container, Button} from 'reactstrap';
-import { get_colors } from './ImageProcessing.js'
+import './App.css'
 
 class Heropage extends Component {
     render() {
@@ -10,14 +9,9 @@ class Heropage extends Component {
             return <div className="Heropage"></div>
         }
         let img_path = hero.thumbnail.path + '.' + hero.thumbnail.extension
-        let colors = get_colors(img_path)
-        let bgcolor = '#' + colors[0]
-        let textcolor = '#' + colors[1]
         return (
-            <div 
-                className="Heropage" 
-                style={{backgroundColor: bgcolor, color: textcolor}}>
-                <Container>
+            <div className="Heropage" >
+                <Container >
                     <Row>
                         <Col sm="6">
                             <img width="100%" alt="" src={img_path}></img>
@@ -26,13 +20,28 @@ class Heropage extends Component {
                             <h1>
                                 {hero.name}
                             </h1>
+                            <hr></hr>
                             <div>
                                 {hero.description}
                             </div>
-                            <Button 
+                            <button 
+                                style={{
+                                    backgroundColor: "#FF0000",
+                                    fontWeight: "bold",
+                                    color: "white",
+                                    padding: "0px 0px 0px 0px",
+                                    fontSize: "32px",
+                                    textTransform: "uppercase",
+                                    border: "none",
+                                    cursor: "pointer",
+                                }}
                                 onClick={() => this.props.handleAdd(hero.id)} >
-                                {this.props.isMyAvenger(hero.id) ? "Retirer" : "Ajouter"}
-                            </Button>
+                                {this.props.isMyAvenger(hero.id) ? "Retirer" : <svg height="36px" width="150px">
+                                    <image href="/avengers_logo.png" atl="A" height="32px" width="28px" x="0px" y="0px"/>
+                                    <text height="50px" x="24px" y="26px" fill="white">jouter</text>
+                                </svg>
+                                }
+                            </button>
                         </Col>
                     </Row>
                     <Row>

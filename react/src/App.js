@@ -7,6 +7,9 @@ import GridList from './GridList.js'
 import Sidebar from 'react-sidebar'
 import Avengers from './Avengers.js'
 import SearchBar from '@opuscapita/react-searchbar'
+import Modal from 'react-modal'
+import HeroPage from './Heropage.js'
+import {get_colors} from './ImageProcessing.js'
 
 
 class App extends Component {
@@ -15,11 +18,11 @@ class App extends Component {
         this.state = {
             sidebarOpen: false,
             superheros: [],
-            myAvengersId: [],
             myAvengers: [],
             searchValue: '',
             openModal: false,
             modalHero: false,
+            colors: [],
         }
     }
 
@@ -32,14 +35,19 @@ class App extends Component {
     }
 
     openModal(id) {
-        get_character(id).then(hero =>
+        this.onSetSidebarOpen(false)
+        get_character(id).then(hero => {
             this.setState({...this.state, openModal: id, modalHero: hero})
-        )
+            get_colors(
+                hero.thumbnail.path + "/standard_small." + hero.thumbnail.extension
+            ).then(colors => {
+                console.log(colors)
+                this.setState({...this.state, colors: colors})
+            }
+            )
+        })
     }
 
-    isModalOpen(id) {
-        return this.state.openModal == id
-    }
     onSetSidebarOpen(open) {
         this.setState({...this.state, sidebarOpen: open})
     }
@@ -63,23 +71,19 @@ class App extends Component {
     }
 
     isMyAvenger(id) {
-        return this.state.myAvengersId.includes(id)
+        return this.state.myAvengers.map(avenger => avenger.id).includes(id)
     }
 
     addAvenger(id) {
-        var currentAvengersId = this.state.myAvengersId
         var currentAvengers = this.state.myAvengers 
-        get_character(id)
         if (this.isMyAvenger(id)) {
-            let index = currentAvengers.indexOf(id)
-            currentAvengersId.splice(index, 1)
+            let index = currentAvengers.map(avenger => avenger.id).indexOf(id)
             currentAvengers.splice(index, 1)
-            this.setState({...this.state, myAvengersId: currentAvengersId})
+            this.setState({...this.state, myAvengers: currentAvengers})
         } else {
-            currentAvengersId.push(id)
             get_character(id).then((hero) => {
-                currentAvengers.push(hero)
-                this.setState({...this.state, myAvengersId: currentAvengersId})
+                currentAvengers.push({...hero, colors: this.state.colors})
+                this.setState({...this.state, myAvengers: currentAvengers})
             })
         }
     }
@@ -90,30 +94,44 @@ class App extends Component {
             <Sidebar
                 open={this.state.sidebarOpen}
                 onSetOpen={this.onSetSidebarOpen.bind(this)}
-                styles={{ sidebar: { background: "white" } }}
-                sidebar={<Avengers superheros={this.state.myAvengers}/>}
-                pullRight={true}>
-                
-            </Sidebar>
-                <MyNavbar
-                    openSidebar={this.openSidebar.bind(this)}
-                /> 
+                styles={{ sidebar: { background: "#222222", color: "white", padding: "20px",} }}
+                sidebar={<Avengers superheros={this.state.myAvengers} 
+                showModal={this.openModal.bind(this)}
+                handleRemove={this.addAvenger.bind(this)}/>}
+                pullRight="true"
+            />
+            <MyNavbar openSidebar={this.openSidebar.bind(this)} >
                 <SearchBar 
                     value={this.state.searchValue}
                     onSearch={this.handleSearch.bind(this)}
+                    searchPlaceHolder="Rechercher"
                     dynamicSearchStartsFrom={3}
                 />
-                <GridList
-                    superheros={this.state.superheros}
-                    isModalOpen={this.isModalOpen.bind(this)}
-                    closeModal={this.closeModal.bind(this)}
-                    openModal={this.openModal.bind(this)}
-                    modalHero={this.state.modalHero}
-                    isMyAvenger={this.isMyAvenger.bind(this)}
+            </MyNavbar> 
+            <GridList
+                superheros={this.state.superheros}
+                openModal={this.openModal.bind(this)}
+                modalHero={this.state.modalHero}
+                handleAdd={this.addAvenger.bind(this)}
+            >
+            </GridList>
+            <Modal 
+                isOpen={this.state.openModal}
+                onRequestClose={this.closeModal.bind(this)}
+                style={{
+                  content: {
+                    backgroundColor: this.state.colors[0],
+                    color: this.state.colors[1]
+                  }
+                }}
+            >
+                <HeroPage
                     handleAdd={this.addAvenger.bind(this)}
-                >
-                </GridList>
-                <BottomScrollListener onBottom={this.more_heroes.bind(this)}/>
+                    isMyAvenger={this.isMyAvenger.bind(this)}
+                    modalHero={this.state.modalHero}
+                />
+            </Modal>
+            <BottomScrollListener onBottom={this.more_heroes.bind(this)}/>
             <footer>
                 Data provided by Marvel. © 2014 Marvel
             </footer>

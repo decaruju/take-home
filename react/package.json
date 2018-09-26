@@ -1,5 +1,5 @@
 {
-  "name": "marvel",
+  "name": "take-home-marvel",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,6 +21,7 @@
     "reactjs-popup": "^1.2.0",
     "reactstrap": "^6.4.0",
     "rgb-hex": "^2.1.0",
+    "rgb-to-hsl": "0.0.3",
     "skmeans": "^0.9.8"
   },
   "scripts": {
