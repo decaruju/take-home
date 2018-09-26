@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container} from 'reactstrap';
-import { get_character } from './api.js'
 import './App.css'
 
 class GridList extends Component {
@@ -9,7 +8,7 @@ class GridList extends Component {
             <div className="Avengers">
                 <div >
                 <h1>
-                    <img src="/avengers_logo.png" height="64px"/>
+                    <img src="/avengers_logo.png" height="64px" alt="Avengers logo"/>
                     Mes&nbsp;Avengers
                 </h1>
                 </div>
@@ -27,7 +26,7 @@ class GridList extends Component {
                         onClick={() => this.props.showModal(hero.id)}
                         >
 
-                            <img src={hero.thumbnail.path + "/standard_small." + hero.thumbnail.extension}></img>
+                            <img src={hero.thumbnail.path + "/standard_small." + hero.thumbnail.extension} alt={hero.name}></img>
                             <div style={{
                             display:"inline-block",
                             marginLeft: "10px",

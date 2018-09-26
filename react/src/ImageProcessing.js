@@ -1,6 +1,5 @@
 import Jimp from 'jimp'
 import skmeans from 'skmeans'
-import rgbHex from 'rgb-hex'
 import rgbToHsl from 'rgb-to-hsl'
 
 export function get_colors(img_path) {
