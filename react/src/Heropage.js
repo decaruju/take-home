@@ -26,7 +26,7 @@ class Heropage extends Component {
                                 <br/>
                                 <b>Nom :</b> {hero.name}
                                 <br/>
-                                <b>Âge :</b> {Int(Math.random()*20+20)}
+                                <b>Âge :</b> {Math.floor(Math.random()*20+20)}
                             </div>
                             <div>
                                 <div style={{
